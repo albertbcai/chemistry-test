@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oligonucleotide Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Oligonucleotide Calculator</h1>
+            <p class="subtitle">Calculate molecular weights and analyze deletion variants</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <div class="card">
+                    <h2>Sequence Input</h2>
+                    <div class="input-group">
+                        <label for="sequence-input">DNA Sequence (A, C, G, T)</label>
+                        <input 
+                            type="text" 
+                            id="sequence-input" 
+                            placeholder="Enter sequence (e.g., ACGTACGT)"
+                            autocomplete="off"
+                        >
+                        <div class="input-hint">Case-insensitive, whitespace will be removed</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Building Blocks</h2>
+                    <p class="card-description">Edit molecular weights for each base (g/mol)</p>
+                    <div class="building-blocks">
+                        <div class="block-item">
+                            <label for="block-A">Adenine (A)</label>
+                            <input type="number" id="block-A" step="0.01" value="313.21">
+                            <span class="block-name">Adenine</span>
+                        </div>
+                        <div class="block-item">
+                            <label for="block-C">Cytosine (C)</label>
+                            <input type="number" id="block-C" step="0.01" value="289.18">
+                            <span class="block-name">Cytosine</span>
+                        </div>
+                        <div class="block-item">
+                            <label for="block-G">Guanine (G)</label>
+                            <input type="number" id="block-G" step="0.01" value="329.21">
+                            <span class="block-name">Guanine</span>
+                        </div>
+                        <div class="block-item">
+                            <label for="block-T">Thymine (T)</label>
+                            <input type="number" id="block-T" step="0.01" value="304.20">
+                            <span class="block-name">Thymine</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="results-section" id="results-section" style="display: none;">
+                <div class="card">
+                    <h2>Full Sequence Results</h2>
+                    <div class="primary-results">
+                        <div class="result-item">
+                            <span class="result-label">Molecular Weight:</span>
+                            <span class="result-value" id="full-mw">-</span>
+                            <span class="result-unit">g/mol</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Sequence Length:</span>
+                            <span class="result-value" id="sequence-length">-</span>
+                            <span class="result-unit">bases</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Base Composition:</span>
+                            <div class="composition" id="base-composition"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Deletion Variants Analysis</h2>
+                    <p class="card-description">All n-1 deletion variants with molecular weights and probabilities</p>
+                    <div class="table-container">
+                        <table id="deletions-table">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Deleted Base</th>
+                                    <th>Resulting Sequence</th>
+                                    <th>Molecular Weight (g/mol)</th>
+                                    <th>Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deletions-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="error-section" id="error-section" style="display: none;">
+                <div class="card error-card">
+                    <h2>Error</h2>
+                    <p id="error-message"></p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Oligonucleotide Calculator v1.0</p>
+        </footer>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
