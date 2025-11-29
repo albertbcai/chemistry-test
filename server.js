@@ -15,6 +15,11 @@ app.use(express.static(path.join(__dirname), {
     extensions: ['html', 'css', 'js', 'json']
 }));
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', port: PORT });
+});
+
 // Serve index.html for root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
