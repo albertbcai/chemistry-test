@@ -9,16 +9,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the root directory (CSS, JS, etc.)
-app.use(express.static(path.join(__dirname), {
-    index: false, // Don't serve index.html automatically
-    extensions: ['html', 'css', 'js', 'json']
-}));
-
-// Health check endpoint
+// Health check endpoint (before static files)
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', port: PORT });
 });
+
+// Serve static files from the root directory (CSS, JS, etc.)
+// This must come before the catch-all route
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
 
 // Serve index.html for root route
 app.get('/', (req, res) => {
@@ -26,6 +25,7 @@ app.get('/', (req, res) => {
 });
 
 // Serve index.html for all other routes (SPA behavior)
+// This must be last to catch all unmatched routes
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
